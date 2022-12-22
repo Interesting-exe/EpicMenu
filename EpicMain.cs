@@ -18,12 +18,19 @@ namespace EpicMenu
 
         public static float ExtractDelay(string fileName)
         {
-            string[] parts = fileName.Split('_');
-            string delayPart = parts[2];
-            string[] delayParts = delayPart.Split('-');
-            string delay = delayParts[1];
-            delay = delay.Replace("s.png", "");
-            return float.Parse(delay);
+            try
+            {
+                string[] parts = fileName.Split('_');
+                string delayPart = parts[2];
+                string[] delayParts = delayPart.Split('-');
+                string delay = delayParts[1];
+                delay = delay.Replace("s.png", "");
+                return float.Parse(delay);
+            }
+            catch(Exception e)
+            {
+                return 0;
+            }
         }
 
         public static IEnumerator WaitForUi()

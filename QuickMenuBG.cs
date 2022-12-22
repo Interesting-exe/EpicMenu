@@ -39,7 +39,7 @@ namespace EpicMenu
         public static bool bannersEnabled;
         private static GameObject banner;
         private static int bannerIndex = 1;
-        public static float bannerDelay = 5;
+        public static float bannerDelay;
         private static Sprite[] bannerSprites = EpicMain.LoadGif($"{Environment.CurrentDirectory}\\EpicMenu\\Banner\\");
 
         public static void InitializeQM()
@@ -146,6 +146,11 @@ namespace EpicMenu
             UnityEngine.Object.Destroy(banner.transform.Find("LoadingIcon").gameObject);
             banner.GetComponent<Image>().overrideSprite = bannerSprites[0];
             MelonLogger.Msg("Banner Initialized");
+            
+            float delay = EpicMain.ExtractDelay(Directory.GetFiles($"{Environment.CurrentDirectory}\\EpicMenu\\Banner\\",  "*.png")[0]);
+            if(delay > 0)
+                bannerDelay = delay;
+            
             MelonCoroutines.Start(Banner());
         }
         
